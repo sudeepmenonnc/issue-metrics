@@ -32,6 +32,6 @@ jobs:
       uses: github/issue-metrics@v3
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SEARCH_QUERY: 'repo:owner/repo is:issue created:${{ env.last_month }} -reason:"not planned"'
+        SEARCH_QUERY: 'repo:sudeepmenonnc/issue-metrics is:issue created:${{ env.last_month }} -reason:"not planned"'
 
   
