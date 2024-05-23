@@ -37,11 +37,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           SEARCH_QUERY: 'repo:sudeepmenonnc/issue-metrics created:${{ env.start_date }}..${{ env.end_date }} -reason:"not planned"'
 
-     - name: Create issue
-      uses: peter-evans/create-issue-from-file@v5
-      with:
-        title: Monthly issue metrics report
-        token: ${{ secrets.GH_TOKEN }}
-        content-filepath: ./issue_metrics.md         
-
-  
+      - name: Create issue
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: Monthly issue metrics report
+          token: ${{ secrets.GH_TOKEN }}
+          content-filepath: ./issue_metrics.md         
