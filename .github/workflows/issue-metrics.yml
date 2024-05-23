@@ -1,37 +1,40 @@
 name: Monthly issue metrics
+
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '3 2 1 * *'
+    inputs:
+      start_date:
+        description: "Start date for metrics (YYYY-MM-DD)"
+        required: true
+      end_date:
+        description: "End date for metrics (YYYY-MM-DD)"
+        required: true
 
 permissions:
   contents: read
 
 jobs:
   build:
-    name: issue metrics
+    name: Issue metrics
     runs-on: ubuntu-latest
     permissions:
       issues: write
       pull-requests: read
     steps:
-    - name: Get dates for last month
-      shell: bash
-      run: |
-        # Calculate the first day of the previous month
-        first_day=$(date -d "last month" +%Y-%m-01)
+      - name: Set date range
+        run: |
+          # Use the provided input values
+          start_date=${{ github.event.inputs.start_date }}
+          end_date=${{ github.event.inputs.end_date }}
 
-        # Calculate the last day of the previous month
-        last_day=$(date -d "$first_day +1 month -1 day" +%Y-%m-%d)
+          # Set environment variables with the date range
+          echo "start_date=$start_date" >> $GITHUB_ENV
+          echo "end_date=$end_date" >> $GITHUB_ENV
 
-        #Set an environment variable with the date range
-        echo "$first_day..$last_day"
-        echo "last_month=$first_day..$last_day" >> "$GITHUB_ENV"
-
-    - name: Run issue-metrics tool
-      uses: github/issue-metrics@v3
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SEARCH_QUERY: 'repo:sudeepmenonnc/issue-metrics is:issue created:${{ env.last_month }} -reason:"not planned"'
+      - name: Run issue-metrics tool
+        uses: github/issue-metrics@v3
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEARCH_QUERY: "repo:sudeepmenonnc/issue-metrics is:issue created:${{ env.start_date }}..${{ env.end_date }} -reason:\"not planned\""
 
   
