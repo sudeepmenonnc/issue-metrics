@@ -31,6 +31,7 @@ from issue_metrics import (
 class TestSearchIssues(unittest.TestCase):
     """Unit tests for the search_issues function.
     asdfasdfasdfasdfasdfasdfasdf
+    asdfasfasdfasdfTest2
 
     This class contains unit tests for the search_issues function in the
     issue_metrics module. The tests use the unittest module and the unittest.mock
