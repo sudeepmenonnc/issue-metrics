@@ -35,6 +35,6 @@ jobs:
         uses: github/issue-metrics@v3
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          SEARCH_QUERY: "repo:sudeepmenonnc/issue-metrics is:issue created:${{ env.start_date }}..${{ env.end_date }} -reason:\"not planned\""
+          SEARCH_QUERY: 'repo:sudeepmenonnc/issue-metrics created:${{ env.start_date }}..${{ env.end_date }} -reason:"not planned"'
 
   
