@@ -1,8 +1,13 @@
 name: Monthly contributor report
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '3 2 1 * *'
+    inputs:
+      start_date:
+        description: "Start date for metrics (YYYY-MM-DD)"
+        required: true
+      end_date:
+        description: "End date for metrics (YYYY-MM-DD)"
+        required: true
 
 permissions:
   issues: write
